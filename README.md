@@ -16,3 +16,7 @@ Git API tool for platforms like Codeberg and GitHub.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
     Freakybob Team <freakybobsite@proton.me>
+# Discloser
+ChatGPT was used to format and debug some issues in GitKit.
+It was not used to create entire features.
+Thanks for using GitKit!

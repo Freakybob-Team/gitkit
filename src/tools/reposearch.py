@@ -13,17 +13,46 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # Freakybob Team <freakybobsite@proton.me>
+import urllib.request
+import json
+import inquirer
 
-import urllib.request, json, pyautogui
 def repoSearch():
-    keyword = input("What would you like to search? ")
     try:
-        with urllib.request.urlopen("https://codeberg.org/api/v1/repos/search/search?q=" + keyword) as url:
-            data = json.load(url)
-            print("Name of repository: " + data["full_name"])
-            print("Repo URL: " + data["html_url"])
-            pyautogui.press("f11")
+        search_q = [
+            inquirer.Text('keyword', message="What would you like to search?")
+        ]
+        keyword_answer = inquirer.prompt(search_q)
+        keyword = keyword_answer['keyword']
+
+        results_q = [
+            inquirer.Text('count', message="How many results should be shown?", default="5")
+        ]
+        count_answer = inquirer.prompt(results_q)
+        try:
+            count = int(count_answer['count'])
+            if count < 1:
+                count = 1
+        except ValueError:
+            count = 5 
+
+        try:
+            with urllib.request.urlopen(f"https://codeberg.org/api/v1/repos/search?q={keyword}") as url:
+                data = json.load(url)
+                
+                if "data" in data and len(data["data"]) > 0:
+                    print(f"\nTop {count} results for '{keyword}':\n")
+                    for i, repo in enumerate(data["data"][:count], start=1):
+                        print(f"{i}. {repo['full_name']}")
+                        print(f"   URL: {repo['html_url']}")
+                        if 'description' in repo and repo['description']:
+                            print(f"   Description: {repo['description']}")
+                        print()
+                else:
+                    print(f"No repositories found for: {keyword}")
+        except Exception as e:
+            print("There was an issue accessing the API! Error: " + str(e))
+            print("GitKit will now exit.")
     except Exception as e:
-        print("There was an issue accessing the API! Error: " + str(e))
-        print("Gitit will now exit.")
-        pyautogui.press("f11")
+        print("There was an issue using the function. Error: " + str(e))
+        print("GitKit will now exit.")

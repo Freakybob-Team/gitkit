@@ -20,26 +20,28 @@ import tools.credits as credits
 import tools.reposearch as reposearch
 import os
 import pyautogui
-pyautogui.press("f11")
-if os.name == 'java':
-    print("Gitit doesn't support Mac (Darwin). Sorry!")
+try:
     pyautogui.press("f11")
-    quit()
+    if os.name == 'java':
+        print("Gitit doesn't support Mac (Codename: Darwin, Java). Sorry!")
+        quit()
 
-print("Welcome to Gitit, a Git API tool by Freakybob Team.")
-print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
-print("Information may take up a lot of the window. We'd like to ask you to maximize this.")
-print("To unresize, press F11!")
-select = [
-  inquirer.List('selection',
+    print("Welcome to Gitit, a Git API tool by Freakybob Team.")
+    print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
+    print("Information may take up a lot of the window. We'd like to ask you to maximize this.")
+    print("To unresize, press F11!")
+    select = [
+        inquirer.List('selection',
                 message="What action would you like to perform on the Codeberg API?",
-                choices=['Get organzation information', 'Search for a repository - ⚠️ BROKEN', 'See GitKit Credits'],
+                choices=['Get organzation information', 'Search for a repository', 'See GitKit Credits'],
             ),
-]
-answers = inquirer.prompt(select)
-if (answers['selection'] == "Get organzation information"):
-    orginfo.orgInfo()
-if (answers['selection'] == "See GitKit Credits"):
-    credits.creditUs()
-if (answers['selection'] == "Search for a repository"):
-    reposearch.repoSearch()
+    ]
+    answers = inquirer.prompt(select)
+    if (answers['selection'] == "Get organzation information"):
+        orginfo.orgInfo()
+    if (answers['selection'] == "See GitKit Credits"):
+        credits.creditUs()
+    if (answers['selection'] == "Search for a repository"):
+        reposearch.repoSearch()
+except Exception as e:
+    print("There was an issue in GitKit and we had to close. Error: " + str(e))
