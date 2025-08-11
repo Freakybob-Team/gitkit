@@ -1,4 +1,4 @@
-# Gitit Organzation Information, a Git API tool.
+# GitKit Organzation Information, a Git API tool.
 # 2025 Freakybob Team. Licensed under GPL-3.0.
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@ def orgInfo():
     try:
         with urllib.request.urlopen("https://codeberg.org/api/v1/orgs/" + org_name) as url:
             data = json.load(url)
+            print("--------")
             print("ID: " + str(data["id"]))
             print("Name: " + data["name"])
             if 'data["full_name"]' in locals():
@@ -45,6 +46,8 @@ def orgInfo():
             else:
                 print("❌: Location wasn't listed")
             print("Visibility: " + data["visibility"])
-            print("Username: " + data["username"] + " - ⚠️ Deprecated")
+            print("Username: " + data["username"] + " - ⚠️  Deprecated")
+            print("Gitit will now exit.")
     except Exception as e:
         print("There was an issue accessing the API! Error: " + str(e))
+        print("Gitit will now exit.")

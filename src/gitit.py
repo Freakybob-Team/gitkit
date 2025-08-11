@@ -1,4 +1,4 @@
-# Gitit, a Git API tool.
+# GitKit, a Git API tool.
 # 2025 Freakybob Team. Licensed under GPL-3.0.
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,8 +16,23 @@
 import inquirer
 import urllib.request, json 
 import tools.orginfo as orginfo
+import tools.credits as credits
+import os
+if os.name == 'posix':
+    import pyautogui
+    pyautogui.press("f11")
+if os.name == 'java':
+    print("Gitit doesn't support Mac (Darwin). Sorry!")
+    quit()
+if os.name == 'nt':
+    import win32gui, win32con
+    hwnd = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
+
 print("Welcome to Gitit, a Git API tool by Freakybob Team.")
 print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
+print("Information may take up a lot of the window. We'd like to ask you to maximize this.")
+print("To unresize, press F11!")
 select = [
   inquirer.List('selection',
                 message="What action would you like to perform on the Codeberg API? Or, credits.",
@@ -27,3 +42,5 @@ select = [
 answers = inquirer.prompt(select)
 if (answers['selection'] == "Get organzation information"):
     orginfo.orgInfo()
+if (answers['selection'] == "Credits"):
+    credits.creditUs()
