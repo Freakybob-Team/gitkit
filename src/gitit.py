@@ -15,7 +15,7 @@
 # Freakybob Team <freakybobsite@proton.me>
 import inquirer
 import urllib.request, json 
-import orginfo
+import tools.orginfo as orginfo
 print("Welcome to Gitit, a Git API tool by Freakybob Team.")
 print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
 select = [
