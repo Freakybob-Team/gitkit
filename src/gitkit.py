@@ -18,13 +18,18 @@ import urllib.request, json
 import tools.orginfo as orginfo
 import tools.credits as credits
 import tools.reposearch as reposearch
-import os
 import pyautogui
+import os
 try:
     pyautogui.press("f11")
     if os.name == 'java':
         print("Gitit doesn't support Mac (Codename: Darwin, Java). Sorry!")
         quit()
+    giturlreal = [
+        inquirer.Text('giturl', message="You can use any Git instance that is powered by Gitea or Forgejo. What API URL would you like to use? (Codeberg is default)", default="https://codeberg.org/api/v1/")
+    ]
+    giturl = inquirer.prompt(giturlreal)
+    giturl_answer = giturl['giturl']
 
     print("Welcome to Gitit, a Git API tool by Freakybob Team.")
     print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
@@ -38,10 +43,10 @@ try:
     ]
     answers = inquirer.prompt(select)
     if (answers['selection'] == "Get organzation information"):
-        orginfo.orgInfo()
+        orginfo.orgInfo(giturl_answer)
     if (answers['selection'] == "See GitKit Credits"):
         credits.creditUs()
     if (answers['selection'] == "Search for a repository"):
-        reposearch.repoSearch()
+        reposearch.repoSearch(giturl_answer)
 except Exception as e:
     print("There was an issue in GitKit and we had to close. Error: " + str(e))

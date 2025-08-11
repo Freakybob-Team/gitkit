@@ -14,39 +14,28 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # Freakybob Team <freakybobsite@proton.me>
 
-import urllib.request, json, pyautogui
-def orgInfo():
-    print("What organzation would you like to see information about?")
-    org_name = input()
+import urllib.request, json, pyautogui, inquirer
+
+def orgInfo(giturl_answer):
+    org_name = [
+        inquirer.Text('orgname', message="What organization would you like to see information about?")
+    ]
+    org_answer = inquirer.prompt(org_name)
+    org_name = org_answer['orgname']
     try:
-        with urllib.request.urlopen("https://codeberg.org/api/v1/orgs/" + org_name) as url:
+        with urllib.request.urlopen(giturl_answer + "orgs/" + org_name) as url:
             data = json.load(url)
             print("--------")
-            print("ID: " + str(data["id"]))
-            print("Name: " + data["name"])
-            if 'data["full_name"]' in locals():
-                print("Full Name;" + data["full_name"])
-            else:
-                print("❌: Full Name wasn't listed")
-            if 'data["email"]' in locals():
-                print("Email: " + data["email"])
-            else:
-                print("❌: Email wasn't listed")
-            print("Avatar URL: " + data["avatar_url"])
-            if 'data["description"]' in locals():
-                print("Description: " + data["description"])
-            else:
-                print("❌: Descripton wasn't listed")
-            if 'data["website"]' in locals():
-                print("Website: " + data("website"))
-            else:
-                print("❌: Website wasn't listed")
-            if 'data["location"]' in locals():
-                print("Location: " + data["location"])
-            else:
-                print("❌: Location wasn't listed")
-            print("Visibility: " + data["visibility"])
-            print("Username: " + data["username"] + " - ⚠️  Deprecated")
+            print("ID: " + str(data.get("id", "N/A")))
+            print("Name: " + data.get("name", "N/A"))
+            print("Full Name: " + data.get("full_name", "❌: Full Name wasn't listed"))
+            print("Email: " + data.get("email", "❌: Email wasn't listed"))
+            print("Avatar URL: " + data.get("avatar_url", "N/A"))
+            print("Description: " + data.get("description", "❌: Description wasn't listed"))
+            print("Website: " + data.get("website", "❌: Website wasn't listed"))
+            print("Location: " + data.get("location", "❌: Location wasn't listed"))
+            print("Visibility: " + data.get("visibility", "N/A"))
+            print("Username: " + data.get("username", "N/A") + " - ⚠️ Deprecated")
             print("Gitit will now exit.")
             pyautogui.press("f11")
     except Exception as e:

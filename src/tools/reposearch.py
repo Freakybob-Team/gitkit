@@ -16,8 +16,9 @@
 import urllib.request
 import json
 import inquirer
+import gitkit
 
-def repoSearch():
+def repoSearch(giturl_answer):
     try:
         search_q = [
             inquirer.Text('keyword', message="What would you like to search?")
@@ -37,7 +38,7 @@ def repoSearch():
             count = 5 
 
         try:
-            with urllib.request.urlopen(f"https://codeberg.org/api/v1/repos/search?q={keyword}") as url:
+            with urllib.request.urlopen(f"{gitkit.giturl_answer}repos/search?q={keyword}") as url:
                 data = json.load(url)
                 
                 if "data" in data and len(data["data"]) > 0:
