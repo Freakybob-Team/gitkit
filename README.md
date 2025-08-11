@@ -1,2 +1,2 @@
 # gitit
- Git API tool for platfomrs like Codeberg and GitHub
+Git API tool for platforms like Codeberg and GitHub.
