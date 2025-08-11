@@ -5,7 +5,7 @@ Get the requirements.txt for your system (Linux or Windows).
 
 You'll have to install these for GitKit to work.
 # License
-    Copyright (C) 2025  Freakybob Team
+    Copyright (C) 2025 Freakybob Team
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
