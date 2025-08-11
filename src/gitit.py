@@ -15,6 +15,7 @@
 # Freakybob Team <freakybobsite@proton.me>
 import inquirer
 import urllib.request, json 
+import orginfo
 print("Welcome to Gitit, a Git API tool by Freakybob Team.")
 print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
 select = [
@@ -25,35 +26,4 @@ select = [
 ]
 answers = inquirer.prompt(select)
 if (answers['selection'] == "Get organzation information"):
-    print("What organzation would you like to see information about?")
-    org_name = input()
-    try:
-        with urllib.request.urlopen("https://codeberg.org/api/v1/orgs/" + org_name) as url:
-            data = json.load(url)
-            print("ID: " + str(data["id"]))
-            print("Name: " + data["name"])
-            if 'data["full_name"]' in locals():
-                print("Full Name;" + data["full_name"])
-            else:
-                print("❌: Full Name wasn't listed")
-            if 'data["email"]' in locals():
-                print("Email: " + data["email"])
-            else:
-                print("❌: Email wasn't listed")
-            print("Avatar URL: " + data["avatar_url"])
-            if 'data["description"]' in locals():
-                print("Description: " + data["description"])
-            else:
-                print("❌: Descripton wasn't listed")
-            if 'data["website"]' in locals():
-                print("Website: " + data("website"))
-            else:
-                print("❌: Website wasn't listed")
-            if 'data["location"]' in locals():
-                print("Location: " + data["location"])
-            else:
-                print("❌: Location wasn't listed")
-            print("Visibility: " + data["visibility"])
-            print("Username: " + data["username"] + " - ⚠️ Deprecated")
-    except Exception as e:
-        print("There was an issue accessing the API! Error: " + str(e))
+    orginfo.orgInfo()
