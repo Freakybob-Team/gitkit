@@ -1,3 +1,5 @@
+![GitKit logo, designed by Hypercuber103](image.png)
+Logo designed by Hypercuber103
 # GitKit
 Git API tool for platforms like Codeberg and GitHub.
 # License
