@@ -1,9 +1,5 @@
 # GitKit
 Git API tool for platforms like Codeberg and GitHub.
-# Requirements
-Get the requirements.txt for your system (Linux or Windows).
-
-You'll have to install these for GitKit to work.
 # License
     Copyright (C) 2025 Freakybob Team
 

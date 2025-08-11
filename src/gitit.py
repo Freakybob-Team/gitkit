@@ -17,17 +17,14 @@ import inquirer
 import urllib.request, json 
 import tools.orginfo as orginfo
 import tools.credits as credits
+import tools.reposearch as reposearch
 import os
-if os.name == 'posix':
-    import pyautogui
-    pyautogui.press("f11")
+import pyautogui
+pyautogui.press("f11")
 if os.name == 'java':
     print("Gitit doesn't support Mac (Darwin). Sorry!")
+    pyautogui.press("f11")
     quit()
-if os.name == 'nt':
-    import win32gui, win32con
-    hwnd = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
 
 print("Welcome to Gitit, a Git API tool by Freakybob Team.")
 print("This tool uses the Codeberg API. Support for other Git APIs may be added later.")
@@ -35,12 +32,14 @@ print("Information may take up a lot of the window. We'd like to ask you to maxi
 print("To unresize, press F11!")
 select = [
   inquirer.List('selection',
-                message="What action would you like to perform on the Codeberg API? Or, credits.",
-                choices=['Get organzation information', 'Credits'],
+                message="What action would you like to perform on the Codeberg API?",
+                choices=['Get organzation information', 'Search for a repository - ⚠️ BROKEN', 'See GitKit Credits'],
             ),
 ]
 answers = inquirer.prompt(select)
 if (answers['selection'] == "Get organzation information"):
     orginfo.orgInfo()
-if (answers['selection'] == "Credits"):
+if (answers['selection'] == "See GitKit Credits"):
     credits.creditUs()
+if (answers['selection'] == "Search for a repository"):
+    reposearch.repoSearch()

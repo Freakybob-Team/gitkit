@@ -14,7 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # Freakybob Team <freakybobsite@proton.me>
 
-import urllib.request, json 
+import urllib.request, json, pyautogui
 def orgInfo():
     print("What organzation would you like to see information about?")
     org_name = input()
@@ -48,6 +48,8 @@ def orgInfo():
             print("Visibility: " + data["visibility"])
             print("Username: " + data["username"] + " - ⚠️  Deprecated")
             print("Gitit will now exit.")
+            pyautogui.press("f11")
     except Exception as e:
         print("There was an issue accessing the API! Error: " + str(e))
         print("Gitit will now exit.")
+        pyautogui.press("f11")
